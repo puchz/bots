@@ -23,6 +23,11 @@ bot.on('text', (msg) => {
   if (msg.text.toString().toLowerCase().includes("pizza")) {
     bot.sendMessage(chatId, 'Quiero comer pitza HAHAHa.');
   }
+  
+    if (msg.text.toString().toLowerCase().includes("pini")) {
+    bot.sendMessage(chatId, 'Che y si volvemos a WhatsApp?');
+  }
+  
 });
 
 bot.on('new_chat_members', (msg) => {
