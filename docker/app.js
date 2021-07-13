@@ -37,10 +37,10 @@ const contarChiste = () =>{
     getChiste().then( chiste => {
         bot.sendMessage(msg.chat.id,"Escuchate este " + msg.chat.name + ":");
         bot.sendMessage(msg.chat.id, chiste);
-        bot.sendMessage(msg.chat.id,"HAHAHA Buenizimo!");
+        bot.sendMessage(msg.chat.id,"HAHAHAH " + getRandomMessage());
     }).catch(err => {
         console.log(err)
-        bot.sendMessage(msg.chat.id,"CHABON hoy no tengo chistes :/");
+        bot.sendMessage(msg.chat.id,"CHABON ahora no tengo chistes :/");
     });
 }
 
