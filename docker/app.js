@@ -1,9 +1,47 @@
 const TelegramBot = require('node-telegram-bot-api');
 const weather = require ('weather-js');
+const fetch = require('node-fetch');
 
 const token = process.env.BOT_TOKEN
 if (token === undefined) {
   throw new Error('BOT_TOKEN must be provided!')
+}
+
+const API_CHISTES_URI = process.env.API_CHISTES_URI;
+if (API_CHISTES_URI === undefined) {
+  throw new Error('API chistes URI missing!')
+}
+
+const getChiste = (async () => {
+    let chiste = await fetch(API_CHISTES_URI).then( res => {
+        return res.json();
+    }).then(obj => {
+        return obj.text;
+    });
+    return chiste;
+});
+
+const getRandomMessage = () =>{
+    let messages =
+        ["BESOS EN LA COLA!",
+         "ESPERO QUE ANDEN BIEN!",
+         "AHORA NO SOLO NO PUEDO RESPIRAR SINO QUE TAMBIEN ME DUELE LA PIJA!",
+         "ME ESGUILSE!",
+         "SALUDOS A TODOS LOS PITOS",
+         "TE GUSTAN LOS PEBETES LEA!",
+         "ETZELENTE!"];
+    return messages[Math.floor(Math.random()*messages.length)];
+}
+
+const contarChiste = () =>{
+    getChiste().then( chiste => {
+        bot.sendMessage(msg.chat.id,"Escuchate este " + msg.chat.name + ":");
+        bot.sendMessage(msg.chat.id, chiste);
+        bot.sendMessage(msg.chat.id,"HAHAHAH " + getRandomMessage());
+    }).catch(err => {
+        console.log(err)
+        bot.sendMessage(msg.chat.id,"CHABON ahora no tengo chistes :/");
+    });
 }
 
 // Create a bot that uses 'polling' to fetch new updates
@@ -24,8 +62,12 @@ bot.on('text', (msg) => {
     bot.sendMessage(chatId, 'Quiero comer pitza HAHAHa.');
   }
   
-    if (msg.text.toString().toLowerCase().includes("pini")) {
+  if (msg.text.toString().toLowerCase().includes("pini")) {
     bot.sendMessage(chatId, 'Che y si volvemos a WhatsApp?');
+  }
+  
+  if (msg.text.toString().toLowerCase().includes("chiste")) {
+    contarChiste();
   }
   
 });
@@ -33,6 +75,11 @@ bot.on('text', (msg) => {
 bot.on('new_chat_members', (msg) => {
     bot.sendMessage(msg.chat.id, "Bienvenide al grupo " + msg.chat.name + " estimadisime " + msg.new_chat_members.name);
 });
+
+
+bot.onText(/^\/humor/, function(msg, match){
+    contarChiste();
+}
 
 bot.onText(/^\/clima/, function(msg, match){
     var chatId = msg.chat.id;
