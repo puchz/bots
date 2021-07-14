@@ -79,7 +79,7 @@ bot.on('new_chat_members', (msg) => {
 
 bot.onText(/^\/humor/, function(msg, match){
     contarChiste();
-}
+});
 
 bot.onText(/^\/clima/, function(msg, match){
     var chatId = msg.chat.id;
