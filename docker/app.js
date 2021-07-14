@@ -33,7 +33,7 @@ const getRandomMessage = () =>{
     return messages[Math.floor(Math.random()*messages.length)];
 }
 
-const contarChiste = () =>{
+const contarChiste = (msg) =>{
     getChiste().then( chiste => {
         bot.sendMessage(msg.chat.id,"Escuchate este " + msg.chat.name + ":");
         bot.sendMessage(msg.chat.id, chiste);
@@ -67,7 +67,7 @@ bot.on('text', (msg) => {
   }
   
   if (msg.text.toString().toLowerCase().includes("chiste")) {
-    contarChiste();
+    contarChiste(msg);
   }
   
 });
@@ -78,7 +78,7 @@ bot.on('new_chat_members', (msg) => {
 
 
 bot.onText(/^\/humor/, function(msg, match){
-    contarChiste();
+    contarChiste(msg);
 });
 
 bot.onText(/^\/clima/, function(msg, match){
