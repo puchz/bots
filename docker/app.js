@@ -36,12 +36,16 @@ const getRandomMessage = () =>{
 const contarChiste = (msg) =>{
     getChiste().then( chiste => {
         let username = msg.from.first_name || "";
-        bot.sendMessage(msg.chat.id,"Escuchate este " + username + ":");
-        bot.sendMessage(msg.chat.id, chiste);
-        bot.sendMessage(msg.chat.id,"HAHAHAH " + getRandomMessage());
+        bot.sendMessage(msg.chat.id,"Escuchate este " + username + ":")
+        .then(()=>{
+            bot.sendMessage(msg.chat.id, chiste);
+            .then(()=>{
+                bot.sendMessage(msg.chat.id,"HAHAHAH " + getRandomMessage());
+            });
+        })
     }).catch(err => {
         console.log(err)
-        bot.sendMessage(msg.chat.id,"CHABON ahora no tengo chistes :/");
+        bot.sendMessage(msg.chat.id, "CHABON ahora no tengo chistes :/");
     });
 }
 
