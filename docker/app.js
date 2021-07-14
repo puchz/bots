@@ -38,7 +38,7 @@ const contarChiste = (msg) =>{
         let username = msg.from.first_name || "";
         bot.sendMessage(msg.chat.id,"Escuchate este " + username + ":")
         .then(()=>{
-            bot.sendMessage(msg.chat.id, chiste);
+            bot.sendMessage(msg.chat.id, chiste)
             .then(()=>{
                 bot.sendMessage(msg.chat.id,"HAHAHAH " + getRandomMessage());
             });
