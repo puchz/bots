@@ -130,15 +130,15 @@ bot.onText(/^\/dia ([0-9]+) ([0-9]+)/, function(msg, match){
                 bot.sendMessage(chatId,dia);
         }
     }
-};
+});
 
 bot.onText(/^\/dia$/, function(msg, match){
     if (match){
-        const dia = diainternacional.getHoy());
+        const dia = diainternacional.getHoy();
         if (dia.length > 0)
             bot.sendMessage(chatId,dia);
     }
-};
+});
 
 bot.onText(/^\/clima/, function(msg, match){
     var chatId = msg.chat.id;
