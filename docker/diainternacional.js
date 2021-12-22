@@ -77,16 +77,16 @@ const getDiaInternacional = (dia, mes) => {
     if (resultados.length == 1) {
 	msg =   "📰 HOY ES " + dia + " DE " + meses[mes].toUpperCase() + " " +  
 		resultados[0].subject + 
-		".\n<i>Decretado por " + 
+		".\n__Decretado por " + 
 		nameFilter(resultados[0].from) +
 		" en el año " +
-		resultados[0].year +  "</i>";
+		resultados[0].year +  "__";
     }
 
     if (resultados.length > 1){
     	msg = "CHABON. HOY ES " + dia + " DE " + meses[mes].toUpperCase() + ". Según mis registros se celebran:";
 	resultados.forEach( r => {
-	    msg += ("\n📅 " + r.subject + ". <i>Decretado por " + nameFilter(r.from) +  " en el año " + r.year +"</i>");
+	    msg += ("\n📅 " + r.subject + ". __Decretado por " + nameFilter(r.from) +  " en el año " + r.year +"__");
         });
     }
     return msg;
