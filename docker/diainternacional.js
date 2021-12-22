@@ -84,7 +84,7 @@ const getDiaInternacional = (dia, mes) => {
     }
 
     if (resultados.length > 1){
-    	msg = "CAHBONN. HOY ES " + dia + " DE " + meses[mes].toUpperCase() + ". Según mis registros se celebran:";
+    	msg = "CHABON. HOY ES " + dia + " DE " + meses[mes].toUpperCase() + ". Según mis registros se celebran:";
 	resultados.forEach( r => {
 	    msg += ("\n📅 " + r.subject + ". <i>Decretado por " + nameFilter(r.from) +  " en el año " + r.year +"</i>");
         });
