@@ -1,6 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const weather = require ('weather-js');
 const fetch = require('node-fetch');
+const diainternacional = require('./diainternacional');
 
 const token = process.env.BOT_TOKEN
 if (token === undefined) {
@@ -120,6 +121,24 @@ bot.on('new_chat_members', (msg) => {
 bot.onText(/^\/humor/, function(msg, match){
     contarChiste(msg);
 });
+
+bot.onText(/^\/dia ([0-9]+) ([0-9]+)/, function(msg, match){
+    if (match){
+        if(match.length >= 3) {
+            const dia = diainternacional.getDia(parseInt(match[1]), parseInt(match[2]));
+            if (dia.length > 0)
+                bot.sendMessage(chatId,dia);
+        }
+    }
+};
+
+bot.onText(/^\/dia$/, function(msg, match){
+    if (match){
+        const dia = diainternacional.getHoy());
+        if (dia.length > 0)
+            bot.sendMessage(chatId,dia);
+    }
+};
 
 bot.onText(/^\/clima/, function(msg, match){
     var chatId = msg.chat.id;
