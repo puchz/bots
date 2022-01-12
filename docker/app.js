@@ -127,7 +127,7 @@ bot.onText(/^\/dia ([0-9]+) ([0-9]+)/, function(msg, match){
         if(match.length >= 3) {
             const dia = diainternacional.getDia(parseInt(match[1]), parseInt(match[2]));
             if (dia.length > 0)
-                bot.sendMessage(msg.chat.id,dia);
+                bot.sendMessage(msg.chat.id,dia, {parse_mode:"HTML"});
         }
     }
 });
@@ -136,7 +136,7 @@ bot.onText(/^\/dia$/, function(msg, match){
     if (match){
         const dia = diainternacional.getHoy();
         if (dia.length > 0)
-            bot.sendMessage(msg.chat.id,dia);
+            bot.sendMessage(msg.chat.id,dia, {parse_mode:"HTML"});
     }
 });
 
