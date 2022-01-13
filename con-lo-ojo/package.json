@@ -1,0 +1,22 @@
+{
+  "name": "con-lo-ojo",
+  "version": "0.1.1",
+  "description": "Bot de telegram en Docker",
+  "author": "con lo ojo",
+  "license": "MIT",
+  "scripts": {
+    "compile": "npx tsc",
+    "build": "npm install && npm run compile",
+    "clear": "rm -rf ./node_modules",
+    "start": "node ./dist/app.js"
+  },
+  "dependencies": {
+    "@types/node-telegram-bot-api": "^0.53.0",
+    "node-telegram-bot-api": "^0.53.0"
+  },
+  "devDependencies": {
+    "node-fetch": "^2.6.6",
+    "typescript": "^4.2.3",
+    "weather-js": "^2.0.0"
+  }
+}

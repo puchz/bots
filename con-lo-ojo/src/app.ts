@@ -1,7 +1,10 @@
-const TelegramBot = require('node-telegram-bot-api');
-const weather = require ('weather-js');
-const fetch = require('node-fetch');
-const diainternacional = require('./diainternacional');
+import * as TelegramBot from "node-telegram-bot-api";
+// @ts-ignore
+import * as Weather from "weather-js";
+// @ts-ignore
+import * as Fetch from "node-fetch";
+// @ts-ignore
+import * as DiaInternacional from "./diainternacional";
 
 const token = process.env.BOT_TOKEN
 if (token === undefined) {
@@ -14,7 +17,7 @@ if (API_CHISTES_URI === undefined) {
 }
 
 const getChiste = (async () => {
-    let chiste = await fetch(API_CHISTES_URI).then( res => {
+    let chiste = await Fetch.fetch(API_CHISTES_URI).then( res => {
         return res.json();
     }).then(obj => {
         return obj.text;
@@ -114,9 +117,8 @@ bot.on('text', (msg) => {
 });
 
 bot.on('new_chat_members', (msg) => {
-    bot.sendMessage(msg.chat.id, "Bienvenide al grupo " + msg.chat.name + " estimadisime " + msg.new_chat_members.name);
+    bot.sendMessage(msg.chat.id, "Bienvenide al grupo " + msg.chat.username + " estimadisime " + msg.new_chat_members);
 });
-
 
 bot.onText(/^\/humor/, function(msg, match){
     contarChiste(msg);
@@ -125,7 +127,7 @@ bot.onText(/^\/humor/, function(msg, match){
 bot.onText(/^\/dia ([0-9]+) ([0-9]+)/, function(msg, match){
     if (match){
         if(match.length >= 3) {
-            const dia = diainternacional.getDia(parseInt(match[1]), parseInt(match[2]));
+            const dia = DiaInternacional.getDia(parseInt(match[1]), parseInt(match[2]));
             if (dia.length > 0)
                 bot.sendMessage(msg.chat.id,dia, {parse_mode:"HTML"});
         }
@@ -134,7 +136,7 @@ bot.onText(/^\/dia ([0-9]+) ([0-9]+)/, function(msg, match){
 
 bot.onText(/^\/dia$/, function(msg, match){
     if (match){
-        const dia = diainternacional.getHoy();
+        const dia = DiaInternacional.getHoy();
         if (dia.length > 0)
             bot.sendMessage(msg.chat.id,dia, {parse_mode:"HTML"});
     }
@@ -151,7 +153,7 @@ bot.onText(/^\/clima/, function(msg, match){
         lang: 'es-ES'
     }
 
-    weather.find(opciones, function(err, result) {
+    Weather.find(opciones, function(err, result) {
         if (err){
             console.log(err);
         } else {
@@ -160,7 +162,7 @@ bot.onText(/^\/clima/, function(msg, match){
             if( result[0].current.temperature <= 16) {
                 comentario = "CHABON hoy vamos a tener un dia fresco\n\n"
             }
-            else if( 16 < result[0].current.temperature < 27) {
+            else if(result[0].current.temperature > 16 && result[0].current.temperature < 27) {
                 comentario = "CHABON hoy vamos a tener un dia calido\n\n"
             }
             else {
