@@ -1,9 +1,8 @@
-// @ts-ignore
-import * as Fetch from 'node-fetch';
-import * as TelegramBot from 'node-telegram-bot-api';
+import fetch from "node-fetch";
+import * as TelegramBot from "node-telegram-bot-api";
 
-import * as DiaInternacional from './diainternacional';
-import Forecast from './forecast';
+import * as DiaInternacional from "./diainternacional";
+import Forecast from "./forecast";
 
 const token = process.env.BOT_TOKEN;
 if (token === undefined) {
@@ -16,11 +15,11 @@ if (API_CHISTES_URI === undefined) {
 }
 
 const getChiste = async () => {
-  let chiste = await Fetch.fetch(API_CHISTES_URI)
+  let chiste = await fetch(API_CHISTES_URI)
     .then((res) => {
       return res.json();
     })
-    .then((obj) => {
+    .then((obj: any) => {
       return obj.text;
     });
   return chiste;
