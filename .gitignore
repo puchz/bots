@@ -1,3 +1,5 @@
 /con-lo-ojo/node_modules
 /con-lo-ojo/dist
 /con-lo-ojo/package-lock.json
+/con-lo-ojo/setenv.sh
+/con-lo-ojo/dias-db.json

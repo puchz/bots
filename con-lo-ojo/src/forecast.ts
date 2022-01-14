@@ -1,5 +1,5 @@
 // @ts-ignore
-import * as Weather from 'weather-js';
+import * as Weather from "weather-js";
 
 interface CurrentWeather {
   temperature: string;
@@ -59,7 +59,7 @@ export default class Forecast {
     let msg = "\n📅 Pronostico extendido: \n";
     this.extendedForecastList.forEach((element) => {
       let day = "<b>" + element.day + ":</b>";
-      msg += day.padEnd(20);
+      msg += day.padEnd(16);
       msg +=
         this.convertToEmoji(element.skycodeday) +
         "  Max: " +
@@ -81,6 +81,8 @@ export default class Forecast {
       case "4":
       case "17":
       case "35":
+      case "8":
+      case "9":
         //Thunderstorm
         emoji = "⛈️";
         break;

@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "compile": "npx tsc",
-    "build": "npm install && npm run compile",
+    "build": "npm run clear && npm install && npm run compile",
     "clear": "rm -rf ./node_modules && rm -rf ./dist",
     "start": "node ./dist/app.js"
   },
