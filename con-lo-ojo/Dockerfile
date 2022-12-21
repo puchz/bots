@@ -23,8 +23,8 @@ RUN npm run build
 FROM node:19.3.0-alpine
 WORKDIR /app
 COPY --from=build-stage /app/dist /app/dist
-COPY --from=build-stage /app/node_modules /app/node_modules
 COPY --from=build-stage /app/package.json /app
+RUN npm install
 
 # Start
 CMD [ "npm", "start" ]
