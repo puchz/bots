@@ -1,4 +1,4 @@
-FROM node:19.3.0-alpine as build-stage
+FROM node:19.3.0-alpine
 
 ARG TAG=latest
 
@@ -17,14 +17,8 @@ COPY package.json .
 COPY tsconfig.json .
 COPY ./src ./src
 
-RUN echo "Building image with tag: ${TAG}"
 RUN npm run build
 
-FROM node:19.3.0-alpine
-WORKDIR /app
-COPY --from=build-stage /app/dist /app/dist
-COPY --from=build-stage /app/package.json /app
-RUN npm install
 
 # Start
 CMD [ "npm", "start" ]
