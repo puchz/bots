@@ -78,6 +78,11 @@ const letraMusica = (msg) => {
   );
 };
 
+const removeNatyNicknameCharacters = (msg: string) => 
+{
+  return msg.replace(/<</g, '').replace(/>>/g, '');
+}
+
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true });
 
@@ -86,14 +91,6 @@ bot.on("text", (msg) => {
 
   if (msg.text.toString().toLowerCase().includes("santo padre")) {
     bot.sendMessage(chatId, "CHABON mi nombre es BERZERKER");
-  }
-
-  if (msg.text.toString().toLowerCase().includes("feliz cumple")) {
-    let username = msg.from.first_name || "";
-    bot.sendMessage(
-      chatId,
-      "FELIZ CUMPLE " + username + "NO TE COMAS MUCHOS PIBES HAHAHA"
-    );
   }
 
   if (msg.text.toString().toLowerCase().includes("bambino")) {
@@ -151,10 +148,11 @@ bot.onText(/^\/humor/, function (msg, match) {
 bot.onText(/^\/dia ([0-9]+) ([0-9]+)/, function (msg, match) {
   if (match) {
     if (match.length >= 3) {
-      const dia = DiaInternacional.getDia(
+      let dia = DiaInternacional.getDia(
         parseInt(match[1]),
         parseInt(match[2])
       );
+      dia = removeNatyNicknameCharacters(dia);
       if (dia.length > 0)
         bot.sendMessage(msg.chat.id, dia, { parse_mode: "HTML" });
     }
@@ -163,7 +161,8 @@ bot.onText(/^\/dia ([0-9]+) ([0-9]+)/, function (msg, match) {
 
 bot.onText(/^\/dia$/, function (msg, match) {
   if (match) {
-    const dia = DiaInternacional.getHoy();
+    let dia = DiaInternacional.getHoy();
+    dia = removeNatyNicknameCharacters(dia);
     if (dia.length > 0)
       bot.sendMessage(msg.chat.id, dia, { parse_mode: "HTML" });
   }
@@ -173,7 +172,6 @@ bot.onText(/^\/clima/, async function (msg, match) {
   var chatId = msg.chat.id;
   let forecast = new Forecast();
   let comment = await forecast.generateReport();
-  console.log(comment);
   bot.sendMessage(chatId, comment, { parse_mode: "HTML" });
 });
 
