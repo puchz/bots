@@ -1,21 +1,20 @@
-#### Generar imagen pasando como parametro un dockerfile
+#### Crear volume y copiarle el `dias-db.json`
 
 ```bash
-$ docker build -t con-lo-ojo-bot -f v0.1.0.dockerfile .
+$docker volume create con-lo-ojo
+
+$docker run -v con-lo-ojo:/data -itd --rm --name helper busybox
+$docker cp ./dias-db.json helper:/data
+$docker stop helper
 ```
 
-#### Correr el bot pasando variable de ambiente BOT_TOKEN generada desde telegram por BotFather
+#### Crear y correr container
+
+Modificar el docker-compose.yaml y agregar las variables BOT_TOKEN y CHISTES_URI. 
+La version 1.25 de docker-compose no permite pasar las variables de ambiente en el yaml.
+
+https://docs.docker.com/compose/environment-variables/
 
 ```bash
-$ docker run --name con-lo-ojo-bot -e BOT_TOKEN="<token>" con-lo-ojo-bot
+$docker-compose up --build --force-recreate
 ```
-
-#### Generar imagen .tar para moverla a microk8s
-
-```bash
-# $ docker save con-lo-ojo-bot -o con-lo-ojo-bot.tar
-$ docker save con-lo-ojo-bot > con-lo-ojo-bot.tar
-$ microk8s ctr image import con-lo-ojo-bot.tar
-```
-
-#### Agregar el token en init.sh y correrlo

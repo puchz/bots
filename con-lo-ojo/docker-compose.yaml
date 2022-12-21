@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+
+  con-lo-ojo:
+    image: con-lo-ojo:stable
+    build:
+      context: .
+    environment:
+      #- API_CHISTES_URI=http://tu-api-chistes-favorita.com:puerto/api/endpoint
+      #- BOT_TOKEN="123456789:AbCdefGhIJKlmNoPQRsTUVwxyZ"
+      - TIME_ZONE="America/Argentina/Buenos_Aires"
+      - DB_DIAS_PATH=/data/dias-db.json
+
+    volumes:
+      - con-lo-ojo:/data
+
+volumes:
+  con-lo-ojo:
+    external: true
