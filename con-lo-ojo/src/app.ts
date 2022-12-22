@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import * as TelegramBot from "node-telegram-bot-api";
 
-import * as DiaInternacional from "./diainternacional";
+import * as DiaInternacional from "./diainternacional.js";
 import Forecast from "./forecast";
 
 const token = process.env.BOT_TOKEN;
@@ -181,4 +181,11 @@ bot.onText(/^\/dado/, (msg) => {
 
 bot.onText(/^\/musica/, function (msg, match) {
   letraMusica(msg);
+});
+
+bot.onText(/^\/novedades/, function (msg) {
+  bot.sendMessage(
+    msg.chat.id,
+    "(v0.1.5) Correcciones varias: \n - Visualizacion de los dias internacionales de <<Naty>> \n - Se sacan los msjs spam de cumpleaños"
+  );
 });

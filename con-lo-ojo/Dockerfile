@@ -19,6 +19,7 @@ COPY ./src ./src
 
 RUN npm run build
 
+USER node
 
 # Start
-CMD [ "npm", "start" ]
+CMD [ "node", "./dist/app.js" ]
